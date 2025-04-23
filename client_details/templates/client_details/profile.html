@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Client Profile: {{ client.first_name }}</h2>
+  <p>Phone: {{ client.phone_num }}</p>
+  <p>Address: {{ client.barangay }}</p>
+  <!-- Display related loans, etc., if needed -->
+{% endblock %}

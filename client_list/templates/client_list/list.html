@@ -10,12 +10,14 @@
   <button type="submit"> Search </button>
 </form>
 
-<!-- <a href="{% url 'client_create} -->
+<a href="{% url 'client_create' %}">Add New Client</a>
 
 <ul>
   {% for client in clients %}
   <li>
-    {{ client.first_name }}
+    <a href="{% url 'client_profile' client.id %}">
+      {{ client.first_name }}
+    </a>
   </li>
   {% empty %}
   <li> No clients found. </li>

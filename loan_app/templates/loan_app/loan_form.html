@@ -1,0 +1,11 @@
+
+<h2>Apply loan for {{ client.first_name }}</h2>
+
+<form method="POST"
+      {% csrf_token %}
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+      {{ form.as_p }}
+      <button type="submit">Submit Application</button>
+</form>
+
+<a href="{% url 'clients'  %}">Back to Clients</a>

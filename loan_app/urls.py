@@ -1,0 +1,6 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('create/<int:client_id>/', views.loan_application_create, name='loan_application_create'),
+]

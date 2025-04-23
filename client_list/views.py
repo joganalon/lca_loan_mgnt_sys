@@ -14,3 +14,13 @@ def client_list(request):
         clients = Client.objects.all()
         return render(request, 'client_list/list.html',
     {'clients': clients})
+
+
+def client_create(request):
+    form = ClientForm(request.POST or None)
+    if form.is_valid():
+        client = form.save()
+        return redirect('loan_application_create',
+    client_id=client.id)
+    return render(request, 'client_list/form.html', {'form':form})
+

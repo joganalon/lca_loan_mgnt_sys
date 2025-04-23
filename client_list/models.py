@@ -14,6 +14,9 @@ class Client(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    #added this because I used sequence in mysql
+    #to apply what was discussed during classes
+    
     def save(self, *args, **kwargs):
         if not self.id:
             from django.db import connection
