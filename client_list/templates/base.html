@@ -12,7 +12,64 @@
       {% block content %}
 
       {% endblock %}
-      
+
+      <div id="loan-calculator" style="border:1px solid #ccc; padding:15px; margin-top:20px;">
+  <h3>Loan Calculator</h3>
+  <label for="loan-input">Loan Amount</label>
+  <input type="number" id="loan-input" placeholder="Enter loan amount" step="0.01">
+
+  <p><strong>Client Receives:</strong> ₱<span id="client-receives">0.00</span></p>
+  <p><strong>Daily Payment:</strong> ₱<span id="daily-payment">0.00</span></p>
+  <p><strong>Total Interest:</strong> ₱<span id="total-interest">0.00</span></p>
+  <ul>
+    <li>Owner (8%): ₱<span id="owner-share">0.00</span></li>
+    <li>Employee (5%): ₱<span id="employee-share">0.00</span></li>
+    <li>Gas (2%): ₱<span id="gas-share">0.00</span></li>
+  </ul>
+</div>
+
     </div>
+
+    <script>
+  const loanInput = document.getElementById("loan-input");
+  const fields = {
+    clientReceives: document.getElementById("client-receives"),
+    dailyPayment: document.getElementById("daily-payment"),
+    totalInterest: document.getElementById("total-interest"),
+    ownerShare: document.getElementById("owner-share"),
+    employeeShare: document.getElementById("employee-share"),
+    gasShare: document.getElementById("gas-share"),
+  };
+
+  function updateCalculator(loanAmount) {
+    if (isNaN(loanAmount)) return;
+    loanAmount = parseFloat(loanAmount);
+
+    const interest = loanAmount * 0.15;
+    const clientReceives = loanAmount * 0.85;
+    const dailyPayment = loanAmount / 40;
+
+    fields.clientReceives.textContent = clientReceives.toFixed(2);
+    fields.dailyPayment.textContent = dailyPayment.toFixed(2);
+    fields.totalInterest.textContent = interest.toFixed(2);
+    fields.ownerShare.textContent = (loanAmount * 0.08).toFixed(2);
+    fields.employeeShare.textContent = (loanAmount * 0.05).toFixed(2);
+    fields.gasShare.textContent = (loanAmount * 0.02).toFixed(2);
+  }
+
+  loanInput.addEventListener("input", () => {
+    updateCalculator(loanInput.value);
+  });
+
+  // Function you can call from anywhere to autofill
+  function fillLoanCalculator(amount) {
+    loanInput.value = amount;
+    updateCalculator(amount);
+  }
+
+  // Make fillLoanCalculator globally accessible
+  window.fillLoanCalculator = fillLoanCalculator;
+</script>
+
 </body>
 </html>

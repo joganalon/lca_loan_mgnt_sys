@@ -25,5 +25,39 @@ class Client(models.Model):
                 row = cursor.fetchone()
                 self.id = row[0]
         super().save(*args, **kwargs)
-                
+
+class Loan(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    interest_rate = models.FloatField(default=0.15)
+    date_applied = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Loan for {self.client.first_name} - {self.amount}"
+
+
+class Disbursement(models.Model):
+    loan = models.ForeignKey('Loan', on_delete=models.CASCADE,
+    related_name='disbursements')
+    date = models.DateField(auto_now_add=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Disbursed ₱{self.amount} on {self.date} for Loan #{self.loan.id}"
+
+
+class Payment(models.Model):
+    loan = models.ForeignKey('Loan', on_delete=models.CASCADE,
+    related_name='payments')
+    date = models.DateField(auto_now_add=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    collector = models.CharField(max_length=100)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Payment of ₱{self.amount} on {self.date} for Loan #{self.loan.id}"
+    
+
+    
     

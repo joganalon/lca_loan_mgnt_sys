@@ -15,9 +15,14 @@
 <ul>
   {% for client in clients %}
   <li>
+    <p>
     <a href="{% url 'client_profile' client.id %}">
       {{ client.first_name }}
-    </a>
+    </a> - P{{ client.loan.loan_amount }}
+    <button onclick="fillLoanCalculator({{
+		     client.loan.loan_amount}})">Open in Calculator</button>
+    </p>
+
   </li>
   {% empty %}
   <li> No clients found. </li>
