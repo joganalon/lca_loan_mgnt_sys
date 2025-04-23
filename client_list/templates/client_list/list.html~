@@ -1,0 +1,19 @@
+<h1> Client List </h1>
+
+<form method="GET">
+  <input type="text" name="q" placeholder="Search clients..."
+	 value="{{ request.GET.q }}">
+  <button type="submit"> Search </button>
+</form>
+
+<!-- <a href="{% url 'client_create} -->
+
+<ul>
+  {% for client in clients %}
+  <li>
+    {{ client.first_name }}
+  </li>
+  {% empty %}
+  <li> No clients found. </li>
+  {% endfor %}
+</ul>
