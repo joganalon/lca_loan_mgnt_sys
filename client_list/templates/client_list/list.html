@@ -6,7 +6,7 @@
 {% block content %}
 <form method="GET">
   <input type="text" name="q" placeholder="Search clients..."
-	 value="{{ request.GET.q }}">
+	 value="{{ query }}">
   <button type="submit"> Search </button>
 </form>
 
@@ -18,9 +18,7 @@
     <p>
     <a href="{% url 'client_profile' client.id %}">
       {{ client.first_name }}
-    </a> - P{{ client.loan.loan_amount }}
-    <button onclick="fillLoanCalculator({{
-		     client.loan.loan_amount}})">Open in Calculator</button>
+    </a>
     </p>
 
   </li>

@@ -7,10 +7,39 @@
 <form method="POST"
       {% csrf_token %}
       <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-      {{ form.as_p }}
+
+      <h3>Client Information</h3>
+      {{ client_form.as_p }}
+
+      <h3>Loan Information</h3>
+      {{ loan_form.as_p }}
+
+      <h3>Disbursement Info</h3>
+      {{ disbursement_form.as_p }}
+      
       <button type="submit">Save</button>
 </form>
 
-<a href="{% url 'clients'  %}">Back to List</a>
+<a href="{% url 'client_list'  %}">Back to List</a>
+
+<div id="loan-calculator" style="border:1px solid #ccc; padding:15px;
+				 margin-top:20px;">
+  
+  <h3>Loan Calculator</h3>
+  <label for="loan-input">Loan Amount</label>
+  <input type="number" id="loan-input" placeholder="Enter loan amount"
+	 step="0.01">
+  <p><strong>Client Receives:</strong>
+    ₱<span id="client-receives">0.00</span></p>
+  <p><strong>Daily Payment:</strong>
+    ₱<span id="daily-payment">0.00</span></p>
+  <p><strong>Total Interest:</strong>
+    ₱<span id="total-interest">0.00</span></p>
+  <ul>
+    <li>Owner (8%): ₱<span id="owner-share">0.00</span></li>
+    <li>Employee (5%): ₱<span id="employee-share">0.00</span></li>
+    <li>Gas (2%): ₱<span id="gas-share">0.00</span></li>
+  </ul>
+</div>
 
 {% endblock %}
